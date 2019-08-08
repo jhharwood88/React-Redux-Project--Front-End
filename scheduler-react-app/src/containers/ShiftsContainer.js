@@ -1,25 +1,28 @@
 import React, {Component} from 'react' 
+import { connect } from 'react-redux'
+import { fetchShifts} from '../redux/actions/shiftsActions'
 
-export default class ShiftsContainer extends Component {
+class ShiftsContainer extends Component {
 
 	state = {
 		shifts: []
 	}
 
 	componentDidMount() {
-		fetch("http://localhost:3001/schedules")
-		.then(res => res.json())
-		.then(shifts => this.setState( {shifts }))
+		// fetch("http://localhost:3001/schedules")
+		// .then(res => res.json())
+		// .then(shifts => this.setState( {shifts }))
+		this.props.fetchShifts()
 	}
 
 	render(){
-		if(this.state.shifts.length === 0){
+		if(this.props.shifts.length === 0){
 			return <h1> Loading </h1>
 		}
 		return (
 			<div>
 				<ul>
-					{this.state.shifts.map(shift => (
+					{this.props.shifts.map(shift => (
 						<div key={shift.id}>
 							<p>Day: {shift.day} </p>
 							<p>Time: {shift.time} </p>
@@ -32,3 +35,11 @@ export default class ShiftsContainer extends Component {
 		)
 	}
 }
+
+const mapStateToProps = state => {
+	return {
+		shifts: state.shifts
+	}
+}
+
+export default connect (mapStateToProps, { fetchShifts })(ShiftsContainer)
