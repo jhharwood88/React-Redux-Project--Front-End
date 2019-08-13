@@ -9,11 +9,16 @@ class ShiftsContainer extends Component {
 	}
 
 	componentDidMount() {
-		// fetch("http://localhost:3001/schedules")
-		// .then(res => res.json())
-		// .then(shifts => this.setState( {shifts }))
 		this.props.fetchShifts()
+
 	}
+
+	handleClick = e => {
+	    // this.setState({ covered: true });
+	    console.log(this)
+	  };
+
+
 
 	render(){
 		if(this.props.shifts.length === 0){
@@ -23,11 +28,14 @@ class ShiftsContainer extends Component {
 			<div>
 				<ul>
 					{this.props.shifts.map(shift => (
-						<div key={shift.id}>
+
+						// id={shift.covered === true "covered" : "notcovered" } *** ASK ABOUT HOW TO SET CONDITONAL ON DIV ID
+
+						<div id="shift" key={shift.id}>
 							<p>Day: {shift.day} </p>
 							<p>Time: {shift.time} </p>
 							{shift.covered === true ? <p>Covered: Covered</p> : <p>Covered: Not Covered</p>}
-							<button>Pick Up</button>
+							<button onClick={this.handleClick}>Pick Up</button>
 							<br/><br/><br/>
 						</div>
 					))}
