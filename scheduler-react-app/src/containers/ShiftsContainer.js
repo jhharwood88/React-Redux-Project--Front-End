@@ -27,7 +27,8 @@ class ShiftsContainer extends Component {
 							<p>Day: {shift.day} </p>
 							<p>Time: {shift.time} </p>
 							{shift.covered === true ? <p>Covered: Covered</p> : <p>Covered: Not Covered</p>}
-							<br/>
+							<button>Pick Up</button>
+							<br/><br/><br/>
 						</div>
 					))}
 				</ul>
