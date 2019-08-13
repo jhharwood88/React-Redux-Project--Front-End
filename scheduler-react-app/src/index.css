@@ -8,6 +8,7 @@ body {
   background: #910a00;
   text-align: center;
   color: black;
+  background-image: url(https://cdn.shopify.com/s/files/1/1413/2106/products/Vintage_Notebook_Paper_12_x_12_ST_large.png?v=1502252221);
 }
 
 code {
@@ -16,12 +17,13 @@ code {
 }
 
 #shift{
+
 	width: 700px;
   	height: 150px;
   	padding: 5px;
   	position: relative;
   	left: 28%;
-	background-color: white;
+	background-color: #BCBCBC;
 	border-left: 5px solid black;
 	border-right: 5px solid black;
 	border-top: 2.5px solid black;
