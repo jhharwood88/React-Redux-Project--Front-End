@@ -15,23 +15,20 @@ class ShiftsContainer extends Component {
 
 	handleClick = e => {
 	    // this.setState({ covered: true });
-	    console.log(this)
-	  };
-
-
+	    console.log(this.props.shifts)
+	  };    
 
 	render(){
 		if(this.props.shifts.length === 0){
 			return <h1> Loading </h1>
 		}
+
 		return (
 			<div>
 				<ul>
 					{this.props.shifts.map(shift => (
 
-						// id={shift.covered === true "covered" : "notcovered" } *** ASK ABOUT HOW TO SET CONDITONAL ON DIV ID
-
-						<div id="shift" key={shift.id}>
+						<div  id={shift.covered === true ? "covered" : "notcovered" } key={shift.id}>
 							<p>Day: {shift.day} </p>
 							<p>Time: {shift.time} </p>
 							{shift.covered === true ? <p>Covered: Covered</p> : <p>Covered: Not Covered</p>}
@@ -50,5 +47,9 @@ const mapStateToProps = state => {
 		shifts: state.shifts
 	}
 }
+//***ASK ABOUT THIS IN 1:1
+// const mapDispatchToProps = dispatch => ({
+//   changeCovered: covered => dispatch({type: 'CHANGE_COVERED', covered})
+// })
 
 export default connect (mapStateToProps, { fetchShifts })(ShiftsContainer)
