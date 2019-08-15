@@ -1,6 +1,7 @@
 import React, {Component} from 'react' 
 import { connect } from 'react-redux'
 import { fetchShifts} from '../redux/actions/shiftsActions'
+import { updateCovered } from '../redux/actions/shiftsActions'
 
 class ShiftsContainer extends Component {
 
@@ -13,8 +14,11 @@ class ShiftsContainer extends Component {
 
 	}
 
-	handleClick = e => {
-	    // this.setState({ covered: true });
+	handleClick = (e, shift) => {
+		e.preventDefault() 
+	    shift.covered = true
+	    this.props.updateCovered(shift)
+	    this.props.fetchShifts()
 	    console.log(this.props.shifts)
 	  };    
 
@@ -32,7 +36,7 @@ class ShiftsContainer extends Component {
 							<p>Day: {shift.day} </p>
 							<p>Time: {shift.time} </p>
 							{shift.covered === true ? <p>Covered: Covered</p> : <p>Covered: Not Covered</p>}
-							<button onClick={this.handleClick}>Pick Up</button>
+							<button onClick={ e => this.handleClick(e, shift)}>Pick Up</button>
 							<br/><br/><br/>
 						</div>
 					))}
@@ -47,9 +51,9 @@ const mapStateToProps = state => {
 		shifts: state.shifts
 	}
 }
-//***ASK ABOUT THIS IN 1:1
+
 // const mapDispatchToProps = dispatch => ({
 //   changeCovered: covered => dispatch({type: 'CHANGE_COVERED', covered})
 // })
 
-export default connect (mapStateToProps, { fetchShifts })(ShiftsContainer)
+export default connect (mapStateToProps,  { fetchShifts , updateCovered})(ShiftsContainer)

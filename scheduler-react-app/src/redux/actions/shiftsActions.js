@@ -7,11 +7,21 @@ export const fetchShifts = () => dispatch => {
 }
 
 
-// *** ASK ABOUT THIS AT 1:1
-// export const fetchShift = () => dispatch => {
-// 	return fetch({`http://localhost:3001/schedules/${this.id}`})
-// 	.then(res => res.json())
-// 	.then(shift =>
-// 		dispatch({type: "FETCH_SHIFT_FINISHED", payload: shift})
-// 	)
-// }
+export const updateCovered = shift => {
+  return dispatch => {
+  	
+    fetch(`http://localhost:3001/schedules/${shift.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        shift: {
+          covered: shift.covered,
+          id: shift.id
+        }
+      })
+    })
+    .then(r => {return r.json()})
+  }
+}
