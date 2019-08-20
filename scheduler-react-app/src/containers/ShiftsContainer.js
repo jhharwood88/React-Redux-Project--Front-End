@@ -11,15 +11,20 @@ class ShiftsContainer extends Component {
 
 	componentDidMount() {
 		this.props.fetchShifts()
+		
 
 	}
 
 	handleClick = (e, shift) => {
-		e.preventDefault() 
-	    shift.covered = true
+		e.preventDefault()
+		console.log(`The state says its - covered = ${this.state.covered}`)
+		shift.covered = !shift.covered
 	    this.props.updateCovered(shift)
 	    this.props.fetchShifts()
-	    console.log(this.props.shifts)
+	    this.setState({covered: shift.covered})
+	    console.log(`The shift says its - covered = ${shift.covered}`)
+	    console.log(`The state says its - covered = ${this.state.covered}`)
+	    
 	  };    
 
 	render(){
@@ -36,7 +41,7 @@ class ShiftsContainer extends Component {
 							<p>Day: {shift.day} </p>
 							<p>Time: {shift.time} </p>
 							{shift.covered === true ? <p>Covered: Covered</p> : <p>Covered: Not Covered</p>}
-							<button onClick={ e => this.handleClick(e, shift)}>Pick Up</button>
+							<button onClick={ e => this.handleClick(e, shift)}>{shift.covered === true ? 'Drop Shift' : 'Pick Up'}</button>
 							<br/><br/><br/>
 						</div>
 					))}
@@ -52,8 +57,5 @@ const mapStateToProps = state => {
 	}
 }
 
-// const mapDispatchToProps = dispatch => ({
-//   changeCovered: covered => dispatch({type: 'CHANGE_COVERED', covered})
-// })
 
 export default connect (mapStateToProps,  { fetchShifts , updateCovered})(ShiftsContainer)
