@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { fetchShifts} from '../redux/actions/shiftsActions'
 import { updateCovered } from '../redux/actions/shiftsActions'
+import update from 'immutability-helper';
 
 class ShiftsContainer extends Component {
 
@@ -27,18 +28,6 @@ class ShiftsContainer extends Component {
 	    
 	  }
 
-	  	// console.log(`the shift id is ${shift.id}`)
-	  	// console.log(`the point for this id is ${this.state.points[shift.id]}`)
-	  	// const startingPoints = this.state.points[shift.id]
-	  	// console.log(`the starting point is equal to the point for the id sp- ${startingPoints} id point ${this.state.points[shift.id]} `)
-	  	// console.log(`the shift id is ${shift.id}`)
-	  	// let previousPoints = startingPoints
-	  	// let newPoints = previousPoints + 1
-	  	
-	  	// console.log(this.state.points)
-	  	// this.state.points[shift.id] = newPoints
-	  	// this.forceUpdate()
-
 	  addPoints = (e, shift) => {
 	
 	  	const startingPoints = this.state.points[shift.id]
@@ -46,33 +35,30 @@ class ShiftsContainer extends Component {
 	  	let previousPoints = startingPoints
 	  	let newPoints = previousPoints + 1
 	  	
-	  	
-	  	this.state.points[shift.id] = newPoints
-	  	this.forceUpdate()
-	 //  	this.setState({
-		//   points: update(this.state.points[shift.id], {[shift.id] = newPoints})
-		// })
-		// console.log(this.state.points)
-
-	  	
+	  	const collection = this.state.points
+	  	const index = shift.id
+	  	const newCollection = update(collection, {[index]: {$set: newPoints}})
+	  
+	  	this.setState({
+		  points: newCollection
+		})
 	  } 
 
 	  subPoints = (e, shift) => {
-	  	// console.log(shift.id)
-	  	// const startingPoints = this.state.points
-	  	// let previousPoints = startingPoints
-	  	// let newPoints = previousPoints - 1
-	  	// this.setState({points: newPoints})
-
+	  	
 	  	const startingPoints = this.state.points[shift.id]
 	  	
 	  	let previousPoints = startingPoints
 	  	let newPoints = previousPoints - 1
 	  	
-	  	
-	  	this.state.points[shift.id] = newPoints
-	  	this.forceUpdate()
-	  	
+	  	const collection = this.state.points
+	  	const index = shift.id
+	  	const newCollection = update(collection, {[index]: {$set: newPoints}})
+	  	// this.state.points[shift.id] = newPoints
+	  	// this.forceUpdate()
+	  	this.setState({
+		  points: newCollection
+		})
 	  } 
 
 	render(){
