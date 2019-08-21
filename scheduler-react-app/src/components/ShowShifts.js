@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 class ShowShifts extends Component {
 
   handleClick = e => {
-      // this.setState({ covered: true });
-      console.log("test")
+      
+     
     };
 
 
@@ -27,7 +27,8 @@ const mapStateToProps = (state) => {
   const shift = state.shifts.filter(shift => shift.id === shiftId);
   console.log(state.shifts)
 
-  return {
+  return { 
+
     shift: shift
 
   }
